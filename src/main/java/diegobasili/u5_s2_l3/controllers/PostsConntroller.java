@@ -1,7 +1,6 @@
 package diegobasili.u5_s2_l3.controllers;
 
 import diegobasili.u5_s2_l3.entities.Post;
-import diegobasili.u5_s2_l3.entities.PostPayload;
 import diegobasili.u5_s2_l3.exceptions.BadRequestException;
 import diegobasili.u5_s2_l3.payloads.PostDTO;
 import diegobasili.u5_s2_l3.payloads.PostRespDTO;
@@ -84,8 +83,6 @@ public class PostsConntroller {
 
     @PutMapping("/{postId}/cover")
     public Post uploadAvatar(@PathVariable UUID postId, @RequestParam("cover") MultipartFile image) throws IOException {
-        // "avatar" deve corrispondere ESATTAMENTE come il campo del FormData che ci invia il Frontend
-        // Se non corrisponde non troverò il file
         return this.postsService.uploadImage(postId, image);
     }
 }

@@ -3,6 +3,7 @@ package diegobasili.u5_s2_l3.services;
 import diegobasili.u5_s2_l3.entities.Author;
 import diegobasili.u5_s2_l3.exceptions.BadRequestException;
 import diegobasili.u5_s2_l3.exceptions.NotFoundException;
+import diegobasili.u5_s2_l3.payloads.AuthorDTO;
 import diegobasili.u5_s2_l3.repositories.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,14 +28,15 @@ public class AuthorsService {
         return this.authorRepository.findAll(pageable);
     }
 
-    public Author saveAuthor(Author body) {
+    public Author saveAuthor(AuthorDTO body) {
         // 1. Verifico che l'email non sia già stata utilizzata
-        if (this.authorRepository.existsByEmail(body.getEmail())) {
+        if (this.authorRepository.existsByEmail(body.email())) {
             // 1.1 Se lo è triggero un errore (400 Bad Request)
-            throw new BadRequestException("L'email " + body.getEmail() + " è già in uso!");
+            throw new BadRequestException("L'email " + body.email() + " è già in uso!");
         } else {
+            Author author =
             // 2. Se tutto è ok procedo con l'aggiungere campi 'server-generated' (nel nostro caso avatarURL)
-            body.setAvatar("https://ui-avatars.com/api/?name="+body.getName()+"+"+body.getSurname());
+            body.setAvatar("https://ui-avatars.com/api/?name="+body.name()+"+"+body.surname());
         }
         // 3. Salvo lo User
         return this.authorRepository.save(body);
