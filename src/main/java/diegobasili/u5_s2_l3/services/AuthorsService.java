@@ -34,7 +34,7 @@ public class AuthorsService {
             // 1.1 Se lo è triggero un errore (400 Bad Request)
             throw new BadRequestException("L'email " + body.email() + " è già in uso!");
         } else {
-            Author author =
+            Author author = new Author()
             // 2. Se tutto è ok procedo con l'aggiungere campi 'server-generated' (nel nostro caso avatarURL)
             body.setAvatar("https://ui-avatars.com/api/?name="+body.name()+"+"+body.surname());
         }
